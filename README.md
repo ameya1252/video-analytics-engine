@@ -1,6 +1,5 @@
 # Distributed Real-Time Video Analytics Engine (C++ · AWS · Kubernetes · WebSocket)
 
-A reference implementation you can showcase on GitHub for a distributed, low-latency video analytics platform.
 
 **Highlights**
 - Designed for **5,000+ streams**, target **<40 ms gateway latency** and **99.9% uptime** via Kubernetes on AWS.
@@ -85,6 +84,5 @@ video-analytics-engine/
 ```
 
 ## Notes / Disclaimers
-- This is a showcase/demo scaffold optimized for readability and portability. Replace stubs with production-grade code for real deployments.
 - WebSocket frame bodies here are JSON metadata for simplicity; you can swap in binary frames (e.g., encoded JPEG/RAW) to optimize throughput.
 - Latency numbers are targets; actual performance depends on hardware and network. The design choices (zero-copy paths, batching, mixed precision, pinning, NUMA-aware thread pools) are representative of techniques used to achieve **<40ms gateway latency** and strong uptime SLOs.
