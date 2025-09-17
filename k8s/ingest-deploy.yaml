@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingest
+  namespace: vae
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: ingest }
+  template:
+    metadata:
+      labels: { app: ingest }
+    spec:
+      containers:
+      - name: ingest
+        image: <REPLACE_WITH_IMAGE>/ingest:latest
+        env:
+        - name: GATEWAY_HOST
+          value: gateway
+        - name: GATEWAY_PORT
+          value: "8080"
+        - name: STREAM_ID
+          value: demo_stream

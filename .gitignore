@@ -1,0 +1,14 @@
+build/
+.vscode/
+.clangd/
+.clang-format
+.DS_Store
+*.swp
+*.swo
+*.o
+*.obj
+*.log
+*.cache
+.env
+dist/
+node_modules/

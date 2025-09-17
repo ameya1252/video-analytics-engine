@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dispatcher
+  namespace: vae
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: dispatcher }
+  template:
+    metadata:
+      labels: { app: dispatcher }
+    spec:
+      containers:
+      - name: dispatcher
+        image: <REPLACE_WITH_IMAGE>/dispatcher:latest
+        env:
+        - name: INFERENCE_BACKENDS
+          value: "inference:8091"
+        ports: [{ containerPort: 8090 }]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dispatcher
+  namespace: vae
+spec:
+  selector: { app: dispatcher }
+  ports: [{ name: http, port: 8090, targetPort: 8090 }]
+  type: ClusterIP

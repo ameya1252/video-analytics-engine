@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>VAE Web Client</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 2rem; }
+      #log { white-space: pre-wrap; background: #111; color: #0f0; padding: 1rem; border-radius: 8px; height: 40vh; overflow: auto; }
+      button { padding: .6rem 1rem; border-radius: 8px; border: 1px solid #ccc; background: #f5f5f5; }
+      input { padding: .5rem; width: 300px; }
+    </style>
+  </head>
+  <body>
+    <h1>Video Analytics Engine – Demo Client</h1>
+    <p>Gateway URL (WebSocket): <input id="url" value="ws://localhost:8080/ws" /> <button id="connect">Connect</button></p>
+    <div id="log"></div>
+    <script>
+      const log = (m) => { const el = document.getElementById('log'); el.textContent += m + "\n"; el.scrollTop = el.scrollHeight; };
+      document.getElementById('connect').onclick = () => {
+        const url = document.getElementById('url').value;
+        const ws = new WebSocket(url);
+        ws.onopen = () => { log("Connected → " + url); setInterval(()=>{
+          const msg = JSON.stringify({stream_id:"web", frame_id: Date.now(), ts_ms: Date.now(), bytes: 0});
+          ws.send(msg);
+        }, 200); };
+        ws.onmessage = (e) => log("← " + e.data);
+        ws.onerror = (e) => log("ERROR: " + (e.message || e));
+        ws.onclose = () => log("Closed.");
+      };
+    </script>
+  </body>
+</html>

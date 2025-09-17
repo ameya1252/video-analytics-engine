@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference
+  namespace: vae
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: inference }
+  template:
+    metadata:
+      labels: { app: inference }
+    spec:
+      containers:
+      - name: inference
+        image: <REPLACE_WITH_IMAGE>/inference:latest
+        ports: [{ containerPort: 8091 }]
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inference
+  namespace: vae
+spec:
+  selector: { app: inference }
+  ports: [{ name: http, port: 8091, targetPort: 8091 }]
+  type: ClusterIP
