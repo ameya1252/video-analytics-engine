@@ -1,5 +1,6 @@
 # Distributed Real-Time Video Analytics Engine (C++ · AWS · Kubernetes · WebSocket)
 
+[📄 Comprehensive Research Paper](https://drive.google.com/file/d/1TKZ9pRNR-gJAGqyF3-qeXk4XfefEdTfN/view?usp=sharing)
 
 **Highlights**
 - Designed for **5,000+ streams**, target **<40 ms gateway latency** and **99.9% uptime** via Kubernetes on AWS.
